@@ -5,6 +5,7 @@ sudo mkdir -p $LOGS_FOLDER
 sudo chown -R ec2-user:ec2-user $LOGS_FOLDER
 sudo chmod -R 755 $LOGS_FOLDER
 LOGS_FILE="$LOGS_FOLDER/$0.log"
+SCRIPT_DIR="$PWD"
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 R="\e[31m"
 G="\e[32m" 
@@ -41,7 +42,7 @@ VALIDATE $? "installing nodejs"
 npm install &>> $LOGS_FILE
 VALIDATE $? "installing dependencies"
 }
-
+app_setup(){
 id roboshop  &>> $LOGS_FILE
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
@@ -49,8 +50,6 @@ if [ $? -ne 0 ]; then
 else
     echo -e "system user roboshop already created ...$Y SKIPPING $N"
 fi
-
-app_setup(){
 rm -rf /app 
 VALIDATE $? "removing existing code"
 

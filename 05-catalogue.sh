@@ -5,6 +5,7 @@ source ./common.sh
 check_root
 nodejs_setup
 app_setup
+dependencies_setup
 systemd_setup
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
