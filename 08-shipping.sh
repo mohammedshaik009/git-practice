@@ -21,7 +21,5 @@ if [ $? -ne 0 ]; then
 else
     echo -e "Data already loaded ...$Y SKIPPING $N"
 fi
-system_restart
+app_restart
 print_total_time
-
-
