@@ -34,14 +34,6 @@ print_total_time(){
     echo -e "script executed in seconds: $G $SECONDS $N"
 }
 
-nodejs_setup(){
-dnf module disable nodejs -y   &>> $LOGS_FILE
-dnf module enable nodejs:20 -y  &>> $LOGS_FILE
-dnf install nodejs -y   &>> $LOGS_FILE
-VALIDATE $? "installing nodejs"
-npm install &>> $LOGS_FILE
-VALIDATE $? "installing dependencies"
-}
 app_setup(){
 id roboshop  &>> $LOGS_FILE
 if [ $? -ne 0 ]; then
@@ -65,6 +57,14 @@ unzip /tmp/$app_name.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted $app_name code"
 }
 
+nodejs_setup(){
+dnf module disable nodejs -y   &>> $LOGS_FILE
+dnf module enable nodejs:20 -y  &>> $LOGS_FILE
+dnf install nodejs -y   &>> $LOGS_FILE
+VALIDATE $? "installing nodejs"
+npm install &>> $LOGS_FILE
+VALIDATE $? "installing dependencies"
+}
 systemd_setup(){
 cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
 VALIDATE $? "created systemctl service"
