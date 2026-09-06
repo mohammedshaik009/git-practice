@@ -77,3 +77,12 @@ systemctl enable $app_name &>> $LOGS_FILE
 systemctl restart $app_name &>> $LOGS_FILE
 VALIDATE $? "Restarting $app_name"
 }
+
+java_setup(){
+    dnf install maven -y   &>> $LOGS_FILE
+    VALIDATE $? "installing Maven"
+    cd /app
+    mvn clean package  &>> $LOGS_FILE 
+    mv target/shipping-1.0.jar shipping.jar 
+    VALIDATE $? "installing dependencies"
+}
