@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name=user
+app_name=user
 source ./common.sh
 app_setup
 nodejs_setup
